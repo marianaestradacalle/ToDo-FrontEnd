@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-4" *ngFor="let tarea of tareas">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{tarea.nombre}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{tarea.fechaV}}</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a [routerLink]="['/task']" class="card-link">Editar</a>
+                <a href="#" class="card-link">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<br> <br>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="mostarModal()">Crear tarea</button>
+<br> <br>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" [hidden]="IsmodelShow">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nueva tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrar()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="recipient-name" name="nombre" [(ngModel)]="tarea.nombre">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Prioridad</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01" name="prioridad" [(ngModel)]="tarea.prioridad">
+                                <option selected></option>
+                                <option value="1">Baja</option>
+                                <option value="2">Media</option>
+                                <option value="3">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Fecha de vencimiento:</label>
+                        <input type="date" class="form-control" id="recipient-name" name="fechaVencimiento" [(ngModel)]="tarea.fechaV">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerrar()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="saveTarea()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
