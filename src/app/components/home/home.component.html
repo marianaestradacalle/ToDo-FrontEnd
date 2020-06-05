@@ -1,33 +1,28 @@
+<app-navbar></app-navbar>
+
 <div class="container">
-    <h1>YOUR HOMEWORK</h1>
-    <br>
-    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="mostarModal()">Crear tarea</button>
-    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" (click)="LogOut()">Cerrar Sesión</button>
-    <br>
+    <h1>TO DO - APP</h1>
+
+    <div class="row text-right">
+        <div class="col">
+            <button type="button" class="btn btn-outline-info mr-sm-2" data-toggle="modal" data-target="#exampleModal" (click)="mostarModal()">Crear tarea</button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4 " *ngFor="let tarea of tareas">
-            <div class="card shadow p-3 mb-5 rounded " style="width: 18rem;">
-                <div class="card-body ">
-                    <h5 class="card-title">{{tarea.nombre}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{tarea.fechaV}}</h6>
-                    <p class="card-text">Prioridad: {{tarea.prioridad}}</p>
-                    <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="editTask(tarea._id)" class="card-link">Editar</a>
-                    <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask(tarea._id)" class="card-link">Eliminar</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 " *ngFor="let tarea of tareas">
-            <div class="card text-white bg-dark shadow p-3 mb-5 rounded" style="max-width: 18rem;">
-                <div class="card-header">{{tarea.nombre}}</div>
+            <div class="card shadow p-3 mb-5 rounded" style="width: 18rem;">
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-white">{{tarea.fechaV}}</h6>
+                    <h5 class="card-title">{{tarea.nombre}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Vencimiento: {{ tarea.fechaV | date:"MM/dd/yy" }}</h6>
                     <p class="card-text">Prioridad: {{tarea.prioridad}}</p>
+                    <div *ngIf="tarea.proxV">
+                        <p class="alert alert-danger" role="alert">{{tarea.proxV ? 'Me voy a vencer ': ''}}</p>
+                    </div>
                     <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="editTask(tarea._id)" class="card-link">Editar</a>
                     <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal" (click)="deleteTask(tarea._id)" class="card-link">Eliminar</a>
                 </div>
             </div>
         </div>
-
     </div>
 
 </div>

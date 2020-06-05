@@ -10,7 +10,7 @@ import { Usuario } from '../../models/usuario';
 })
 export class LogupComponent implements OnInit {
 
-  usuario: Usuario = {
+  public usuario: Usuario = {
     nombre: '',
     email: '',
     password: ''
@@ -29,6 +29,13 @@ export class LogupComponent implements OnInit {
       }, err => {
         console.log('No se pudo conectar', err);
       });
+  }
+
+  getErrorMessage(field) {
+    return field.hasError('required') ? 'Campo obligatorio'
+      : field.hasError('email') ? 'El email no es válido'
+        : field.hasError('minlength') ? 'Mínimo 6 caracteres'
+            : '';
   }
 
 }

@@ -1,21 +1,30 @@
 <div class="container">
     <h1>Registrarse</h1>
 
-    <form class="formulario">
+    <form class="formulario" autocomplete="off">
         <div class="form-group">
-            <label for="exampleInputEmail1">Nombre</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="nombre" [(ngModel)]="usuario.nombre">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="usuario.nombre" #nombre="ngModel" required>
+            <div class="alert alert-danger p-1" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">{{getErrorMessage(nombre)}}</div>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" [(ngModel)]="usuario.email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" [(ngModel)]="usuario.email" #email="ngModel" required>
+            <div class="alert alert-danger p-1" *ngIf="email.invalid && (email.dirty || email.touched)">{{getErrorMessage(email)}}</div>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password" [(ngModel)]="usuario.password">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="usuario.password" #password="ngModel" minlength="6" required>
+            <div class="alert alert-danger p-1" *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessage(password)}}</div>
         </div>
 
-        <button type="submit" class="btn btn-outline-info" (click)="saveUsuario()">Registrarse</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-info" (click)="saveUsuario()">Registrarse</button>
+            <div class="mt-2">
+                <a type="button" class="text-info" [routerLink]="['/login'] ">Iniciar sesión</a>
+            </div>
+        </div>
+
+
     </form>
 </div>

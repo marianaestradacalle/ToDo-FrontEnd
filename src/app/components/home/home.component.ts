@@ -5,7 +5,7 @@ import { AuthService } from '../../services/authentication/auth.service';
 import { TareasService } from '../../services/tareas/tareas.service';
 import { TaskComponent } from '../task/task.component';
 import { Tarea } from '../../models/tarea';
-import { Router, ActivatedRoute } from '@angular/router';
+import { AlertComponent } from '../alert/alert.component';
 
 
 @Component({
@@ -14,63 +14,59 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  IsmodelShow: boolean;
   
-  tareas:  any = [];
-  tarea: Tarea = {
+  public tareas:  any = [];
+  public tarea: Tarea = {
     _id: '',
     nombre: '',
     prioridad: '',
     fechaV: '',
-    estado: ''
-  }
+    estado: '',
+    proxV: ''
+  };
 
-  constructor(private tareaService: TareasService, private router: Router, private ngbModal: NgbModal, private activatedRoute: ActivatedRoute, private authService: AuthService) { }
+  constructor(private tareaService: TareasService, private ngbModal: NgbModal, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getTareas();
   }
 
   getTareas() {
-    this.tareaService.getTarea().subscribe( (res: any) => {
-      console.log(res);
+    this.tareaService.getTarea().subscribe((res: any) => {
       this.tareas = res.tareas;
-      
     }, err => {
       console.log(err);
     })
   };
 
-  mostarModal() {
-    const taskModalOpen = this.ngbModal.open(TaskComponent);
-    taskModalOpen.result.then( (result)=> {
+  openAlertModal() {
+    const alertModalOpen = this.ngbModal.open(AlertComponent);
+    alertModalOpen.result.then((_result) => {
       this.getTareas();
     });
   }
 
-  editTask(id) {
+  mostarModal() {
+    const taskModalOpen = this.ngbModal.open(TaskComponent);
+    taskModalOpen.result.then((_result) => {
+      this.getTareas();
+    });
+  }
+
+  editTask(id: string) {
     const taskModalOpen = this.ngbModal.open(TaskComponent);
     taskModalOpen.componentInstance.id = id;
     taskModalOpen.componentInstance.edit = true;
-    taskModalOpen.result.then( (result)=> {
+    taskModalOpen.result.then((_result) => {
       this.getTareas();
     });
-
   }
 
-  deleteTask(id) {
+  deleteTask(id: string) {
     const taskModalOpen = this.ngbModal.open(TaskComponent);
     taskModalOpen.componentInstance.id = id;
-    taskModalOpen.result.then( (result)=> {
-      this.tareas = this.tareas.filter( (tarea)=> {
-        return tarea._id != id;
-      })
-    });
-    
+    taskModalOpen.result.then((_result) => {
+      this.getTareas();
+    });    
   }
-
-  LogOut() {
-    this.authService.logout();
-  }
-
 }

@@ -4,13 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 import  {FormsModule } from '@angular/forms'
 
 
-// Rutas
+// Rutas Y proteccion
 import { APP_ROUTING} from './app.routes';
+import { AuthGuard } from './services/guards/auth.guard';
+import { LogoutGuard } from './services/guards/logout.guard';
 
 // Servicios
 import { UsuarioService } from './services/usuario/usuario.service';
 import { LoginService } from './services/login/login.service';
 import { AuthService } from './services/authentication/auth.service';
+
 
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +23,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LogupComponent } from './components/logup/logup.component';
 import { TaskComponent } from './components/task/task.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     HomeComponent,
     LogupComponent,
-    TaskComponent
+    TaskComponent,
+    NavbarComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   providers: [
     UsuarioService,
     LoginService,
-    AuthService
+    AuthService,
+    AuthGuard,
+    LogoutGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [TaskComponent]

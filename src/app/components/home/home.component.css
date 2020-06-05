@@ -1,12 +1,13 @@
 .container {
     width: 100%;
     height: 80%;
-    margin: 5%;
+    margin-top: 10%;
+    font-family: Bahnschrift Light, Arial, sans-serif;
 }
 
 h1 {
     font-size: 4em;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: Bahnschrift Light, Arial, sans-serif;
     text-align: center;
 }
 
@@ -14,4 +15,9 @@ h1 {
     margin: 2%;
     margin-left: auto;
     margin-right: auto;
+}
+
+h5.card-title {
+    font-family: Bahnschrift Light, Arial, sans-serif;
+    font-weight: bold;
 }

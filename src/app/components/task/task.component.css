@@ -1,0 +1,9 @@
+h5.modal-title {
+    font-family: Bahnschrift Light, Arial, sans-serif;
+    font-weight: bold;
+}
+
+div.modal-body,
+div.modal-footer {
+    font-family: Bahnschrift Light, Arial, sans-serif;
+}

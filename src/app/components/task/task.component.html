@@ -34,14 +34,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)=" edit ? editTarea() : saveTarea()">Guardar</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)=" edit ? editTarea() : saveTarea()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Eliminar -->
-
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" [hidden]="IsmodelShow">

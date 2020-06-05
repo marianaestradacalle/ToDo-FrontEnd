@@ -1,0 +1,19 @@
+<!-- Modal de alerta por vencimiento -->
+<div class="modal fade" id="openModal" tabindex="-1" role="dialog" aria-labelledby="openModalLabel" aria-hidden="true">
+    <div class="modal-dialog" [hidden]="IsmodelShow">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="openModalLabel">Alerta de vencimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="message-text" class="col-form-label">Tiene tareas que pronto van a vencer</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

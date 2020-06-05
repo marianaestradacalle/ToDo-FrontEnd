@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { AuthService} from '../../services/authentication/auth.service'
 import { Usuario} from '../../models/usuario';
 
@@ -11,18 +11,26 @@ import { Usuario} from '../../models/usuario';
 })
 export class LoginComponent implements OnInit {
 
-  usuario: Usuario = {
-  email: '',
+
+  public usuario: Usuario = {
+    email: '',
     password: '',
-  }
-    
-  constructor(private authService: AuthService, private router: Router) { }
+  };
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
-  Login() {
+  login() {
     this.authService.logIn(this.usuario.email, this.usuario.password);
-}
+  }
+
+  getErrorMessage(field) {
+    return field.hasError('required') ? 'Campo obligatorio'
+      : field.hasError('email') ? 'El email no es válido'
+        : field.hasError('minlength') ? 'Mínimo 6 caracteres'
+            : '';
+  }
 
 }

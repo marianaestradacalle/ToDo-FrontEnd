@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
 import { TareasService } from '../../services/tareas/tareas.service';
 import { Tarea } from '../../models/tarea';
@@ -53,6 +54,8 @@ export class TaskComponent implements OnInit {
   }
 
   saveTarea() {
+    const fecha = new DatePipe('en');
+    this.tarea.fechaV = fecha.transform(this.tarea.fechaV, 'yyyy-MM-dd');
     this.tareaService.saveTarea(this.tarea)
       .subscribe( (res) =>{
         console.log(res);

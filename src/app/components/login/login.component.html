@@ -3,19 +3,21 @@
 
     <form class="formulario">
         <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" [(ngModel)]="usuario.email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" [(ngModel)]="usuario.email" #email="ngModel" required>
+            <small id="emailHelp" class="form-text text-muted">Debe estar registrado</small>
+            <div class="alert alert-danger p-1" *ngIf="email.invalid && (email.dirty || email.touched)">{{getErrorMessage(email)}}</div>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="password" [(ngModel)]="usuario.password">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="usuario.password" #password="ngModel" minlength="6" required>
+            <div class="alert alert-danger p-1" *ngIf="password.invalid && (password.dirty || password.touched)">{{getErrorMessage(password)}}</div>
         </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Recordarme</label>
-        </div>
-        <button type="submit" class="btn btn-outline-info" (click)="Login()">Ingresar</button>
-        <a [routerLink]="['/logup']" class="btn btn-outline-info">Registrarse</a>
+
+        <button type="submit" class="btn btn-outline-info" (click)="login()">Ingresar</button>
+        <a [routerLink]="['/logup']" class="text-info  mt-2">Registrarse</a>
+
     </form>
+
+
 </div>
