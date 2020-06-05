@@ -9,6 +9,7 @@ const APP_ROUTES: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'logup', component: LogupComponent},
     {path: 'task', component: TaskComponent},
+    {path: 'task/edit/:id', component: TaskComponent},
     {path: '**', pathMatch: 'full', redirectTo: 'home'}
 ]
 

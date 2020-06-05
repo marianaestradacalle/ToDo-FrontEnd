@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TareasService } from '../../services/tareas/tareas.service';
-import { Tarea } from '../../models/tarea';
-import { Router } from '@angular/router';
+import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../../services/authentication/auth.service';
 
-declare let $: any; 
+import { TareasService } from '../../services/tareas/tareas.service';
+import { TaskComponent } from '../task/task.component';
+import { Tarea } from '../../models/tarea';
+import { Router, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -11,18 +14,18 @@ declare let $: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   IsmodelShow: boolean;
   
   tareas:  any = [];
   tarea: Tarea = {
+    _id: '',
     nombre: '',
     prioridad: '',
-    fechaV:  new Date(),
+    fechaV: '',
     estado: ''
   }
 
-  constructor(private tareaService: TareasService, private router: Router) { }
+  constructor(private tareaService: TareasService, private router: Router, private ngbModal: NgbModal, private activatedRoute: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getTareas();
@@ -32,28 +35,42 @@ export class HomeComponent implements OnInit {
     this.tareaService.getTarea().subscribe( (res: any) => {
       console.log(res);
       this.tareas = res.tareas;
+      
     }, err => {
       console.log(err);
     })
   };
 
-  saveTarea() {
-    this.tareaService.saveTarea(this.tarea)
-      .subscribe( (res) =>{
-        console.log(res);
-        this.router.navigate(['/home']);
-      }, (err) => {
-        console.log(err);        
-      })
-  }
-
-  cerrar() {
-    this.IsmodelShow=true;
-    this.router.navigate(['/home']);
-  }
-
   mostarModal() {
-    $('#Modal').modal();
+    const taskModalOpen = this.ngbModal.open(TaskComponent);
+    taskModalOpen.result.then( (result)=> {
+      this.getTareas();
+    });
+  }
+
+  editTask(id) {
+    const taskModalOpen = this.ngbModal.open(TaskComponent);
+    taskModalOpen.componentInstance.id = id;
+    taskModalOpen.componentInstance.edit = true;
+    taskModalOpen.result.then( (result)=> {
+      this.getTareas();
+    });
+
+  }
+
+  deleteTask(id) {
+    const taskModalOpen = this.ngbModal.open(TaskComponent);
+    taskModalOpen.componentInstance.id = id;
+    taskModalOpen.result.then( (result)=> {
+      this.tareas = this.tareas.filter( (tarea)=> {
+        return tarea._id != id;
+      })
+    });
+    
+  }
+
+  LogOut() {
+    this.authService.logout();
   }
 
 }

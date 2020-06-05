@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import  {FormsModule } from '@angular/forms'
 
 
@@ -19,6 +19,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { LogupComponent } from './components/logup/logup.component';
 import { TaskComponent } from './components/task/task.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,13 +34,15 @@ import { TaskComponent } from './components/task/task.component';
     AppRoutingModule,
     APP_ROUTING,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     UsuarioService,
     LoginService,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [TaskComponent]
 })
 export class AppModule { }

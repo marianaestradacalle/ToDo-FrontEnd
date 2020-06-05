@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { TareasService } from '../../services/tareas/tareas.service';
 import { Tarea } from '../../models/tarea';
 
@@ -8,35 +10,80 @@ import { Tarea } from '../../models/tarea';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
+
 export class TaskComponent implements OnInit {
 
+  @Input() public id;
+  @Input() public edit: boolean;
+
   IsmodelShow: boolean;
+  closeResult = '';
 
   tarea: Tarea = {
+    _id: '',
     nombre: '',
     prioridad: '',
-    fechaV:  new Date(),
+    fechaV:  '',
     estado: ''
   }
 
-  constructor(private router: Router, private tareaService: TareasService ) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private tareaService: TareasService, public taskModal: NgbModal, private taskModalActive: NgbActiveModal ) { }
 
   ngOnInit(): void {
+    if (this.edit) {
+      this.getTarea(this.id);
+    }
+    
+  }
+
+  getTarea(id) {
+    this.tareaService.getTareaOne(this.id).subscribe( (res: any) => {
+      this.tarea.nombre = res.tarea.nombre;
+      this.tarea.prioridad = res.tarea.prioridad;
+      this.tarea.fechaV = res.tarea.fechaV;
+      console.log(res);
+      
+    }, (err)=> {
+      console.log(err);
+    })
+  }
+
+  openModal() {
+    this.taskModal.open('#Modal');
   }
 
   saveTarea() {
     this.tareaService.saveTarea(this.tarea)
       .subscribe( (res) =>{
         console.log(res);
-        this.router.navigate(['/home']);
+      this.taskModalActive.close('#Modal')
       }, (err) => {
         console.log(err);        
       })
   }
 
-  cerrar() {
-    this.IsmodelShow=true;
-    this.router.navigate(['/home']);
+  editTarea() {
+  
+    this.tareaService.updateTarea(this.id, this.tarea).subscribe( (res) => {
+      console.log(res);
+      this.taskModalActive.close('#Modal')
+      this.router.navigate(['/home']);
+    }, (err)=> {
+      console.log(err);
+    })
+  }
+
+  deleteTarea() {
+    this.tareaService.deleteTarea(this.id).subscribe( (res)=> {
+      console.log(res);
+      this.taskModalActive.close('#Modal')
+    }, (err)=> {
+      console.log(err);
+    })
+  }
+
+  closeModal() {
+    this.taskModalActive.close('#Modal')
   }
 
 }

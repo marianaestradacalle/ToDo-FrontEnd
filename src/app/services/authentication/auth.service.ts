@@ -13,13 +13,15 @@ export class AuthService {
 
   logIn(email: String, password:String) {
     this.http.post(`${this.API_URL}/login`, {email: email, password: password}).subscribe( (res: any) => {
-      this.router.navigate(['home']);
       localStorage.setItem('auth_token', res.token)
+      localStorage.setItem('nombre', res.usuario.nombre)
+      this.router.navigate(['/home']);
     })
   }
 
   logout() {
     localStorage.removeItem('auth_token');
+    this.router.navigate(['/login']);
   }
   
   public get login(): boolean {

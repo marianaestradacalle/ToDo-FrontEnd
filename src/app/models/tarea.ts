@@ -1,6 +1,8 @@
+
 export interface Tarea {
-    nombre: String,
-    prioridad: String,
-    fechaV: Date,
-    estado: String
+    _id?: string,
+    nombre: string,
+    prioridad: string,
+    fechaV: string,
+    estado: string
 }

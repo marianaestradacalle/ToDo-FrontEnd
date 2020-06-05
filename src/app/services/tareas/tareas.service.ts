@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../authentication/auth.service';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Tarea } from '../../models/tarea';
 
 @Injectable({
@@ -21,6 +20,15 @@ export class TareasService {
     return this.http.get(`${this.API_URL}/tarea`, { headers});
   }
 
+  getTareaOne(id: string) {
+    const token = localStorage.getItem('auth_token');
+    const headers = new HttpHeaders({
+      'token': `${token}`
+    });
+
+    return this.http.get(`${this.API_URL}/tarea/${id}`, { headers});
+  }
+
   saveTarea(tarea: Tarea) {
     const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({
@@ -36,7 +44,7 @@ export class TareasService {
       'token': `${token}`
     });
 
-    return this.http.put(`${this.API_URL}/tarea/${id}`, tarea);
+    return this.http.put(`${this.API_URL}/tarea/${id}`, tarea, {headers});
   }
 
   deleteTarea(id: string) {
@@ -44,7 +52,7 @@ export class TareasService {
     const headers = new HttpHeaders({
       'token': `${token}`
     });
-    return this.http.delete(`${this.API_URL}/tarea/${id}`);
+    return this.http.delete(`${this.API_URL}/tarea/${id}`, {headers});
   }
 
 

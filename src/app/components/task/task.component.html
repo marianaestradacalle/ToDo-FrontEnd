@@ -1,9 +1,9 @@
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" [hidden]="IsmodelShow">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nueva tarea</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrar()">
+                <h5 class="modal-title" id="exampleModalLabel">{{!edit ? 'Nueva tarea' : 'Editar tarea'}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -20,21 +20,44 @@
                             </div>
                             <select class="custom-select" id="inputGroupSelect01" name="prioridad" [(ngModel)]="tarea.prioridad">
                                 <option selected></option>
-                                <option value="1">Baja</option>
-                                <option value="2">Media</option>
-                                <option value="3">Alta</option>
+                                <option value="Baja">Baja</option>
+                                <option value="Media">Media</option>
+                                <option value="Alta">Alta</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Fecha de vencimiento:</label>
-                        <input type="date" class="form-control" id="recipient-name" name="fechaVencimiento" [(ngModel)]="tarea.fechaV">
+                        <input type="date" class="form-control" id="recipient-name" name="fechaV" [(ngModel)]="tarea.fechaV">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cerrar()">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="saveTarea()">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)=" edit ? editTarea() : saveTarea()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Eliminar -->
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" [hidden]="IsmodelShow">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Eliminar tarea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="message-text" class="col-form-label">¿Está seguro que desea eliminar la tarea?</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="closeModal()">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTarea()">Eliminar</button>
             </div>
         </div>
     </div>

@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
 
   Login() {
     this.authService.logIn(this.usuario.email, this.usuario.password);
-      this.router.navigate(['home']);
 }
 
 }
